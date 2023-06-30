@@ -14,6 +14,11 @@ config/name="TheAppleMangoGame"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Config="*res://autoload/config.gd"
+ResourcePool="*res://autoload/resource_pool.gd"
+
 [display]
 
 window/stretch/mode="viewport"
