@@ -24,5 +24,5 @@ grow_vertical = 2
 texture = ExtResource("1_5o0yf")
 expand_mode = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollidor" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ypm1t")

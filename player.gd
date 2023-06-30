@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
-
 @onready var _player_skin: TextureRect = $PlayerSkin
+var _bullet_scene = preload("res://bullet.tscn")
 
 const MOVEMENT_SPEED := 1000
 const FRICTION := 90
@@ -16,6 +16,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	_move(delta)
+	
+	if Input.is_action_just_pressed("fire"):
+		_fire()
 
 
 func _get_input_axis() -> Vector2:
@@ -25,16 +28,15 @@ func _get_input_axis() -> Vector2:
 	return axis.normalized()
 
 
-
 func _move(p_delta : float) -> void:
 	axis = _get_input_axis()
-	
 	if axis == Vector2.ZERO:
 		_apply_friction(FRICTION)
 	else:
 		_apply_movement(axis * MOVEMENT_SPEED)
 	
 	move_and_slide()
+	look_at(get_global_mouse_position())
 
 
 func _apply_friction(p_amount : float) -> void:
@@ -47,3 +49,18 @@ func _apply_friction(p_amount : float) -> void:
 func _apply_movement(p_velocity : Vector2) -> void:
 	velocity = p_velocity
 	velocity.limit_length(MOVEMENT_SPEED)
+
+
+func _fire() -> void:
+	var bullet = _bullet_scene.instantiate()
+	bullet.position = get_global_position()
+	bullet.rotation_degrees = rotation_degrees
+	
+	bullet.set_target(
+		bullet.global_position.direction_to(
+			get_global_mouse_position()
+			)
+		)
+	bullet.on_fired()
+	
+	get_tree().get_root().add_child(bullet)
