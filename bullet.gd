@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+class_name Bullet
+
 const SPEED := 2000
 
 var target := Vector2.ZERO
