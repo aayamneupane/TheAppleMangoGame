@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://d33p7reh6yea8"]
+
+[ext_resource type="Texture2D" uid="uid://bmoojrudmfe2p" path="res://Player.png" id="1_5o0yf"]
+[ext_resource type="Script" path="res://player.gd" id="1_o0vrl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ypm1t"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_o0vrl")
+
+[node name="PlayerSkin" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_5o0yf")
+expand_mode = 1
+
+[node name="PlayerCollidor" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ypm1t")
