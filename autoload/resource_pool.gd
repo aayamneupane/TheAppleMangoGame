@@ -20,13 +20,14 @@ func _ready() -> void:
 func _load_pools() -> void:
 	# should loop on every data within eligible_resources
 	for resource_data in eligible_resources:
+		
 		for i in eligible_resources[resource_data]["pool_size"]:
 			var resource_instance : Node = eligible_resources[resource_data]["scene"].instantiate()
 			eligible_resources[resource_data]["item_pool"].append(resource_instance)
 			
+			# keeping resource offscreen
+			resource_instance.global_position = STATIC_STATE_POSITION
 			get_tree().get_root().call_deferred("add_child", resource_instance)
-	
-	pass
 
 
 func get_item(p_item_type : int) -> Node:
@@ -38,11 +39,11 @@ func get_item(p_item_type : int) -> Node:
 		item = item_pool.pop_back()
 		item_data["active_items"].append(item)
 	else:
-			# since this item is not taken from the pool, it is not appended in the active items
+		# since this item is not taken from the pool, it is not appended in the active items
 		item = item_data["scene"].instantiate()
 		get_tree().get_root().call_deferred("add_child", item)
 	
-	assert(item != null, "Possible Error : -> Scene Path Changed")
+	assert(item != null, "Possible Error : -> Scene Path Changed or Didn't Find the scene path key")
 	return item
 
 

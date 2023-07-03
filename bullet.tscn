@@ -6,9 +6,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2bhk4"]
 size = Vector2(10, 6)
 
-[node name="Bullet" type="RigidBody2D"]
+[node name="Bullet" type="CharacterBody2D"]
 collision_mask = 0
-gravity_scale = 2.66454e-15
 script = ExtResource("1_s0udd")
 
 [node name="BulletSkin" type="TextureRect" parent="."]
