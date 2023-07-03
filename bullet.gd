@@ -17,8 +17,12 @@ func set_target(p_direction : Vector2) -> void:
 
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
-	_destroy()
-
-
-func _destroy() -> void:
-	queue_free()
+	ResourcePool.de_activate_item(self, Config.PooledItems.BULLET)
+	velocity = Vector2.ZERO
+	target = Vector2.ZERO
+	position = ResourcePool.get_static_state_position()
+	
+	await(get_tree().create_timer(0.5)).timeout
+	print("Position of the bullet =============== :", position)
+	await(get_tree().create_timer(0.5)).timeout
+	print("Position of the bullet =============== :", position)

@@ -1,8 +1,5 @@
 extends CharacterBody2D
 
-@onready var _player_skin: TextureRect = $PlayerSkin
-var _bullet_scene = preload("res://bullet.tscn")
-
 const MOVEMENT_SPEED := 1000
 const FRICTION := 90
 
@@ -28,7 +25,7 @@ func _get_input_axis() -> Vector2:
 	return axis.normalized()
 
 
-func _move(p_delta : float) -> void:
+func _move(_p_delta : float) -> void:
 	axis = _get_input_axis()
 	if axis == Vector2.ZERO:
 		_apply_friction(FRICTION)
@@ -52,7 +49,8 @@ func _apply_movement(p_velocity : Vector2) -> void:
 
 
 func _fire() -> void:
-	var bullet = _bullet_scene.instantiate()
+	var bullet : Bullet = ResourcePool.get_item(Config.PooledItems.BULLET)
+	
 	bullet.position = get_global_position()
 	bullet.rotation_degrees = rotation_degrees
 	
@@ -62,5 +60,3 @@ func _fire() -> void:
 			)
 		)
 	bullet.on_fired()
-	
-	get_tree().get_root().add_child(bullet)
